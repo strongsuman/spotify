@@ -1,7 +1,7 @@
 
 console.log("Welcome to Spotify!")
 
-//initialize The variable
+//initialize variable
 let songIndex=0;
 let audioElement = new Audio('songs/1.mp3');
 let masterPlay = document.getElementById('masterPlay');
@@ -9,6 +9,8 @@ let myProgressBar = document.getElementById('myProgressBar');
 let gif = document.getElementById('gif');
 let masterSongName = document.getElementById('masterSongName');
 let songItems =Array.from(document.getElementsByClassName('songItem'));
+let loopBtn = document.getElementById('loopBtn');
+
 
 let songs=[
     {songName:"Dil Se Dil",filePath:"songs/1.mp3",coverPath:"https://timesofindia.indiatimes.com/photo/msid-94237811,imgsize-52700.cms"},
@@ -34,27 +36,33 @@ songItems.forEach((element,i)=>{
 
 
 //Handle play/pause click
-masterPlay.addEventListener('click',()=>{
-     if(audioElement.paused || audioElement.currentTime <=0){
+masterPlay.addEventListener('click', () => {
+    if (audioElement.paused || audioElement.currentTime <= 0) {
         audioElement.play();
         masterPlay.classList.remove('fa-play-circle');
         masterPlay.classList.add('fa-pause-circle');
         gif.style.opacity = 1;
-
-     }
-     else{
+    } else {
         audioElement.pause();
         masterPlay.classList.remove('fa-pause-circle');
         masterPlay.classList.add('fa-play-circle');
         gif.style.opacity = 0;
-     }
+    }
+});
 
-})
+
+myProgressBar.addEventListener('click', (e) => {
+    let progressBar = e.target;
+    let rect = progressBar.getBoundingClientRect();
+    let clickX = e.clientX - rect.left; // click position from left
+    let width = rect.width;
+    let clickPercent = clickX / width;
+
+    // Update time
+    audioElement.currentTime = clickPercent * audioElement.duration;
+});
 
 
-myProgressBar.addEventListener('change',()=>{
-    audioElement.currentTime = myProgressBar.value * audioElement.duration/100;
-})
 
 const makeAllPlays = ()=>{
     Array.from(document.getElementsByClassName("songItemPlay")).forEach((element)=>{
@@ -97,16 +105,20 @@ Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
    })
 });
 
-document.getElementById('next').addEventListener('click',()=>{
-    if(songIndex>=songs.length-1){
-        songIndex = 0
-    }
-    else{
-        songIndex += 1;
-    }
+//next
+    document.getElementById('next').addEventListener('click', () => {
+        if (isShuffle) {
+            songIndex = getRandomSongIndex();
+        } else {
+            songIndex = (songIndex >= songs.length - 1) ? 0 : songIndex + 1;
+        }
     audioElement.src = songs[songIndex].filePath;
     masterSongName.innerText = songs[songIndex].songName;
     audioElement.currentTime = 0;
+    audioElement.addEventListener('loadedmetadata', () => {
+        myProgressBar.value = 0; 
+        document.getElementById('totalDuration').innerText = formatTime(audioElement.duration);
+    });
     audioElement.play();
     makeAllPlays();
      document.getElementById(songIndex).classList.remove('fa-play-circle');
@@ -117,16 +129,20 @@ document.getElementById('next').addEventListener('click',()=>{
     masterPlay.classList.add('fa-pause-circle');
 })
 
-document.getElementById('previous').addEventListener('click',()=>{
-    if(songIndex<=0){
-        songIndex = 0
-    }
-    else{
-        songIndex -= 1;
-    }
+//previous 
+    document.getElementById('previous').addEventListener('click', () => {
+        if (isShuffle) {
+            songIndex = getRandomSongIndex();
+        } else {
+            songIndex = (songIndex <= 0) ? songs.length - 1 : songIndex - 1;
+        }    
     audioElement.src = songs[songIndex].filePath;
     masterSongName.innerText = songs[songIndex].songName;
     audioElement.currentTime = 0;
+    audioElement.addEventListener('loadedmetadata', () => {
+        myProgressBar.value = 0; // Reset progress bar properly
+        document.getElementById('totalDuration').innerText = formatTime(audioElement.duration);
+    });
     audioElement.play();
     makeAllPlays();
     document.getElementById(songIndex).classList.remove('fa-play-circle');
@@ -137,10 +153,6 @@ document.getElementById('previous').addEventListener('click',()=>{
     masterPlay.classList.add('fa-pause-circle');
 
 })
-
-audioElement.addEventListener('ended', () => {
-    document.getElementById('next').click();
-});
 
 //time format 
 function formatTime(time) {
@@ -163,37 +175,80 @@ document.getElementById('totalDuration').innerText = total;
 let isShuffle = false;
 let isLoop = false;
 
-// Toggle Shuffle
+
+
+//loop song
+let loopMode = 'none'; 
+
+document.getElementById('loopBtn').addEventListener('click', () => {
+    if (loopMode === 'none') {
+        loopMode = 'song';
+        loopBtn.innerText = '    Song'; // Or use classes/icons if using FontAwesome
+    } else if (loopMode === 'song') {
+        loopMode = 'playlist';
+        loopBtn.innerText = '    Playlist';
+    } else {
+        loopMode = 'none';
+        loopBtn.innerText = '';
+    }
+});
+
+//handle loop 
+audioElement.addEventListener('ended', () => {
+    if (loopMode === 'song') {
+        audioElement.currentTime = 0;
+        audioElement.play();
+    } else if (loopMode === 'playlist' || isShuffle) {
+        if (isShuffle) {
+            songIndex = getRandomSongIndex();
+        } else {
+            songIndex = (songIndex >= songs.length - 1) ? 0 : songIndex + 1;
+        }
+        playSelectedSong(songIndex);
+    } else {
+        if (songIndex < songs.length - 1) {
+            songIndex += 1;
+            playSelectedSong(songIndex);
+        } else {
+            masterPlay.classList.remove('fa-pause-circle');
+            masterPlay.classList.add('fa-play-circle');
+            gif.style.opacity = 0;
+        }
+    }
+});
+
+
+// Shuffle functionality
 document.getElementById('shuffleBtn').addEventListener('click', () => {
     isShuffle = !isShuffle;
     document.getElementById('shuffleBtn').classList.toggle('active', isShuffle);
+    document.getElementById('shuffleBtn').style.color = isShuffle ? 'green' : '';
 });
 
-// Toggle Loop
-document.getElementById('loopBtn').addEventListener('click', () => {
-    isLoop = !isLoop;
-    document.getElementById('loopBtn').classList.toggle('active', isLoop);
-});
 
-// Handle song end
-audioElement.addEventListener('ended', () => {
-    if (isLoop) {
-        audioElement.currentTime = 0;
-        audioElement.play();
-    } else if (isShuffle) {
-        songIndex = Math.floor(Math.random() * songs.length);
-        playSelectedSong(songIndex);
-    } else {
-        document.getElementById('next').click();
-    }
-});
+
+function getRandomSongIndex() {
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * songs.length);
+    } while (randomIndex === songIndex); 
+    return randomIndex;
+}
+
 
 // Function to play selected song
 function playSelectedSong(index) {
     songIndex = index;
     audioElement.src = songs[songIndex].filePath;
     masterSongName.innerText = songs[songIndex].songName;
+    document.getElementById('currentSongImg').src = songs[songIndex].coverPath;
+    console.log(songs[index].coverPath);
     audioElement.currentTime = 0;
+    audioElement.addEventListener('loadedmetadata', () => {
+        myProgressBar.value = 0; 
+        document.getElementById('totalDuration').innerText = formatTime(audioElement.duration);
+    });
+    
     audioElement.play();
     makeAllPlays();
     document.getElementById(songIndex).classList.remove('fa-play-circle');
@@ -204,9 +259,23 @@ function playSelectedSong(index) {
 }
 
 
-audioElement.addEventListener("error", (e) => {
-    console.error("Audio load error: ", e);
-    alert("Gaana load nahi ho raha. Check karo file sahi path pe hai ya nahi.");
+
+//keyboard Shortcut
+document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        masterPlay.click();
+    }
+});
+
+//keyboard next and prevoius
+document.addEventListener('keydown',(e) =>{
+    if(e.key ==='ArrowRight'){
+        document.getElementById('next').click();
+    }
+    else if (e.key === "ArrowLeft") { 
+        document.getElementById('previous').click();
+    }
 });
 
 
