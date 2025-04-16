@@ -70,7 +70,7 @@ nav ul li{
     color: #1db954;
     transform: scale(1.1);
 }
-
+  
 time-container {
     display: flex;
     align-items: center;
@@ -122,7 +122,7 @@ time-container {
 }
 .songInfo{
     position: absolute;
-    left:10vw;
+    left:1vw;
     font-family: 'Varela Round', sans-serif;
 }
 .songInfo img{
