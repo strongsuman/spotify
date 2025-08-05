@@ -5,19 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png" type="logo/png">
+
 </head>
 <body>
     <nav>
+        <div class="brand">
+           <img src="logo.png" alt="Spotify Logo" />
+            Spotify
+         </div>
+
+         <div class="icon1" id="toggleBtn">
+          <i class="fas fa-adjust" title="Toggle Theme"></i>
+          </div>
         <ul>
-            <li class="brand"><img src="logo.png" alt="Spotify">Spotify</li>
             <li>Home</li>
             <li>About</li>
+            <li>LogIn</li>
+            <li>Settings</li>
+            <li id="allSongsTab">All Songs</li>
+            <li id="favTab">Favorites</li>
+
         </ul>
+        
     </nav>
+        <div class="search-container">
+           <input type="text" id="searchBar" placeholder="Search songs..." />
+           <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+
     <div class="container">
          <h1>My All favourite Songs</h1>
       <div class="songItemsContainer"></div> 
-<div class="songItem">
+<div class="songItem" >
                 <img src="https://i.pinimg.com/originals/6c/bb/3f/6cbb3f6435d9e39979474cd8a91b0687.png" alt="Suno Chanda">
                 <span class="songName">Dil Se Dil</span>
                 <span class="songlistplay"><span class="timestmap">3:32<i id="0" class="far songItemPlay fa-1.5x fa-play-circle"></i></span></i></span>
@@ -112,14 +132,27 @@
             <i class="fa-regular fa-3x fa-circle-play" id="masterPlay"></i>
             <i class="fa-solid fa-3x fa-forward-step" id="next"></i>
             <i class="fa-solid fa-repeat fa-2x" id="loopBtn" title="Loop"></i>
+            <i class="fa-regular fa-heart fa-2x" id="favBtn" title="Like Song"></i>
+            <div class="volume-control">
+               <i class="fa-solid fa-volume-high fa-2x" id="volumeIcon" title="Volume"></i>
+               <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="1">
+             </div>
+
+              <select id="playbackRate" title="Playback Speed">
+                 <option value="1">1x</option>
+                 <option value="1.25">1.25x</option>
+                 <option value="1.5">1.5x</option>
+                 <option value="2">2x</option>
+              </select>
+
         </div>
-        
+
         <div class="songInfo">
-            <img src="https://i.gifer.com/origin/55/554818561cbf36d813ef2010cc9d66cc_w200.gif" width="250px" height="50px" alt="" id="gif">  
+            <img id="currentSongImg" src="https://timesofindia.indiatimes.com/photo/msid-94237811,imgsize-52700.cms" alt="cover" width="100" height="100">
+            <img src="https://i.gifer.com/origin/55/554818561cbf36d813ef2010cc9d66cc_w200.gif" width="60px" height="60px" alt="Playing GIF" id="gif">
             <span id="masterSongName">Dil Se Dil</span>
         </div>
         
-
     </div>
     <script src="https://kit.fontawesome.com/9c5e41e387.js" crossorigin="anonymous"></script>
     
