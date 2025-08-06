@@ -360,18 +360,6 @@ time-container {
   margin-left: auto;
   margin-right: 20px;
 }
-/*#searchBar {
-  padding: 10px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  background-color: #f1f1f1;
-  color: #000;
-  font-size: 15px;
-  width: 100%;
-  max-width: 220px;
-  transition: background-color 0.3s, color 0.3s;
-}*/
 
 #searchBar {
   padding: 10px 12px;
@@ -416,7 +404,49 @@ body.dark-mode #searchBar {
   background-color: #fff;
   color: #000;
 }
+/*Responsive*/
 @media (max-width: 600px) {
+ 
+  .container {
+    padding: 10px;
+  }
+
+  .playlist-heading {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .songItemsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .songItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .songItem img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .songName {
+    font-size: 14px;
+    flex: 1;
+    word-break: break-word;
+  }
+
+  .timestmap {
+    font-size: 12px;
+  }
+
+
   .Bottom {
     flex-direction: column;
     gap: 10px;
@@ -462,6 +492,3 @@ body.dark-mode #searchBar {
     font-size: 14px;
   }
 }
-
-
-
