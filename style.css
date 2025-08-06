@@ -211,7 +211,8 @@ time-container {
   height: 16px;
   accent-color: #1db954;
   cursor: pointer;
-    margin-top:10px;
+  margin-top:10px;
+  padding:10px 10px 10px;
 }
 
 
