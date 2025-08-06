@@ -196,14 +196,7 @@ time-container {
     min-width: 50px;
     text-align: center;
   }
-/*#myProgressBar{
-    width:85vw;
-    text-align:center;
-    cursor:pointer;
-    flex-grow:1;
-    margin: 0 10px;
 
-}*/
 
 .time-container {
   display: flex;
@@ -218,15 +211,9 @@ time-container {
   height: 16px;
   accent-color: #1db954;
   cursor: pointer;
+    margin-top:10px;
 }
 
-/*#myProgressBar:-webkit-slider-thumb {
-  width: 100%;
-  height: 6px; 
-  cursor: pointer;
-  border-radius: 10px;
-  accent-color: #1db954;
-}*/
 
 .songItemsContainer{
     
