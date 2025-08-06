@@ -80,15 +80,11 @@ let loopBtn = document.getElementById('loopBtn');
     },
 ];
 
-
-
 songItems.forEach((element,i)=>{
     element.getElementsByTagName("img")[0].src = songs[i].coverPath;
     element.getElementsByClassName("songName")[0].innerText = songs[i].songName;
 
 })
-
-
 //Handle play/pause click
 masterPlay.addEventListener('click', () => {
     if (audioElement.paused || audioElement.currentTime <= 0) {
@@ -118,9 +114,6 @@ myProgressBar.addEventListener('click', (e) => {
     // Update time
     audioElement.currentTime = clickPercent * audioElement.duration;
 });
-
-
-
 const makeAllPlays = ()=>{
     Array.from(document.getElementsByClassName("songItemPlay")).forEach((element)=>{
         element.classList.remove('fa-pause-circle');
@@ -239,8 +232,6 @@ document.getElementById('totalDuration').innerText = total;
 let isShuffle = false;
 let isLoop = false;
 
-
-
 //loop song
 let loopMode = 'none'; 
 
@@ -287,15 +278,12 @@ audioElement.addEventListener('ended', () => {
     }
 });
 
-
 // Shuffle functionality
 document.getElementById('shuffleBtn').addEventListener('click', () => {
     isShuffle = !isShuffle;
     document.getElementById('shuffleBtn').classList.toggle('active', isShuffle);
     document.getElementById('shuffleBtn').style.color = isShuffle ? 'green' : '';
 });
-
-
 
 function getRandomSongIndex() {
     let randomIndex;
@@ -304,7 +292,6 @@ function getRandomSongIndex() {
     } while (randomIndex === songIndex); 
     return randomIndex;
 }
-
 
 // Function to play selected song
 function playSelectedSong(index) {
@@ -322,10 +309,6 @@ function playSelectedSong(index) {
     audioElement.addEventListener('loadedmetadata', () => {
         myProgressBar.value = 0; 
         document.getElementById('totalDuration').innerText = formatTime(audioElement.duration);
-
-        
-
-
     });
     
     audioElement.play();
@@ -338,27 +321,6 @@ function playSelectedSong(index) {
 
    
 }
-
-
-
-//keyboard Shortcut
-// document.addEventListener('keydown', (e) => {
-//     if (e.code === 'Space') {
-//         e.preventDefault();
-//         masterPlay.click();
-//     }
-// });
-
-//keyboard next and prevoius
-// document.addEventListener('keydown',(e) =>{
-//     if(e.key ==='ArrowRight'){
-//         document.getElementById('next').click();
-//     }
-//     else if (e.key === "ArrowLeft") { 
-//         document.getElementById('previous').click();
-//     }
-// });
-
 
 let modeBtn = document.querySelector("#toggleBtn");  // ✅ "#" lagana bhool gaya tha
 let currMode = "light";
@@ -403,23 +365,6 @@ volumeBar.addEventListener('input', () => {
         volumeIcon.className = "fa-solid fa-volume-high fa-2x";
     }
 });
-// document.addEventListener('keydown', (e) => {
-//     switch (e.key) {
-//         case 'ArrowUp':
-//             volumeBar.value = Math.min(1, parseFloat(volumeBar.value) + 0.1);
-//             audioElement.volume = volumeBar.value;
-//             break;
-//         case 'ArrowDown':
-//             volumeBar.value = Math.max(0, parseFloat(volumeBar.value) - 0.1);
-//             audioElement.volume = volumeBar.value;
-//             break;
-        
-//             document.querySelector(`.fav-icon[data-index="${songIndex}"]`)?.click();
-//             break;
-//             document.getElementById("toggleBtn").click();
-//             break;
-//     }
-// });
 
 const playbackRate = document.getElementById("playbackRate");
 
@@ -474,23 +419,6 @@ document.addEventListener("keydown", function (e) {
 
 
 
-// document.addEventListener("keydown", function (e) {
-//   const activeElement = document.activeElement;
-
-//   // If user is focused inside an input/textarea (like search bar), don't toggle play/pause
-//   if (
-//     e.code === "Space" &&
-//     (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")
-//   ) {
-//     return; // allow typing space normally
-//   }
-
-//   // Global spacebar play/pause
-//   if (e.code === "Space") {
-//     e.preventDefault(); // prevent default scrolling
-//     masterPlay.click(); // or call your toggle function
-//   }
-// });
 
 
 
