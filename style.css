@@ -146,6 +146,42 @@ body.light-mode {
   font-size:1.2rem;
   color: #aaa;
 }
+#previous:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+  color: #1db954;
+}
+#next:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+  color: #1db954;
+}
+#shuffleBtn:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+  color: #1db954;
+}
+#loopBtn:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+  color: #1db954;
+}
+#favBtn {
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+#favBtn:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+  color: #1db954;
+}
+#volumeIcon:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+  color: #1db954;
+}
+
 
 /* ========== FOOTER PLAYER ========== */
 .Bottom {
