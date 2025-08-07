@@ -382,7 +382,7 @@ function renderSongsGrid() {
 
 document.addEventListener("DOMContentLoaded", renderSongsGrid);
 
-songItemPlay.forEach((element) => {
+songItems.forEach((element) => {
     element.addEventListener("click", (e) => {
         makeAllPlays();
         songIndex = parseInt(e.target.id);
