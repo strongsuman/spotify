@@ -87,6 +87,7 @@ body.light-mode {
 /* ========== MAIN ========== */
 .container {
   padding: 2rem;
+  padding-bottom: 130px
 }
 
 .songItemsContainer {
