@@ -87,6 +87,7 @@ body.light-mode {
 /* ========== MAIN ========== */
 .container {
   padding: 2rem;
+  padding-bottom: 130px
 }
 
 .songItemsContainer {
@@ -173,7 +174,7 @@ body.light-mode {
 #myProgressBar {
   flex: 1;
   cursor: pointer;
-  height:5px;
+  height:4px;
   border-radius: 2px;
   background: #555;
 }
